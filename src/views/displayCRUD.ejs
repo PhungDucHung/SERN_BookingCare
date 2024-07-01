@@ -8,6 +8,26 @@
         table, th, td {
           border:1px solid black;
         }
+
+        .btn-edit{
+            outline: none;
+            border: none;
+            background: orange;
+            height: 25px;
+            width: 60px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .btn-delete{
+            outline: none;
+            border: none;
+            background: #ff0023;
+            height: 25px;
+            width: 60px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -17,6 +37,7 @@
           <th>Firstname</th>
           <th>lastName</th>
           <th>Address</th>
+          <th>Actions</th>
 
         </tr>
 
@@ -27,6 +48,10 @@
                 <td><%= data[i].firstName %></td>
                 <td><%= data[i].lastName %></td>
                 <td><%= data[i].address %></td>
+                <td>
+                    <a href="/edit-crud?id=<%= data[i].id %>" class="btn-edit" type="button" >Edit</a>
+                    <a href="" class="btn-delete" type="button" >Delete</a>
+                </td>
             </tr>
             <%
         }
