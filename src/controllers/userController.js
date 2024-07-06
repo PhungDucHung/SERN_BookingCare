@@ -11,7 +11,6 @@ let handleLogin = async (req, res) => {
             message: 'Missing inputs parameter!'
         });
     }
-
     // Gọi hàm handleUserLogin từ userService với email và password
     let userData = await userService.handleUserLogin(email, password);
 
@@ -23,23 +22,32 @@ let handleLogin = async (req, res) => {
     });
 }
 
-let handleGetAllUsers = async (req , res) => {
-    let id = req.body.id;  // All , id
-    if(!id){
+let handleGetAllUsers = async (req, res) => {
+    let id = req.query.id;  // All , id
+    if (!id) {
         return res.status(200).json({
             errCode: 1,
             errMessage: 'Missing required parameter',
-            users : []
-        })
+            users: []
+        });
     }
-    let users = await userService.getAllUsers(id);
-    return res.status(200).json({
-        errCode: 0,
-        errMessage: 'Missing required parameter',
-        users : []
-    })
+    try {
+        let users = await userService.getAllUsers(id);
+        return res.status(200).json({
+            errCode: 0,
+            errMessage: 'Success',
+            users: users
+        });
+    } catch (error) {
+        console.error('Error while fetching users:', error);
+        return res.status(500).json({
+            errCode: 500,
+            errMessage: 'Internal server error',
+            users: []
+        });
+    }
+};
 
-}
 
 module.exports = {
     handleLogin: handleLogin,
